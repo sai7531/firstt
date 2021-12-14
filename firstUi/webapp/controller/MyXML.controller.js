@@ -1,9 +1,10 @@
 sap.ui.define([
 	"mickey/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
-	"mickey/model/model"
+	"mickey/model/model",
+    "mickey/util/lifeSaver"
 
-], function(Controller, JSONModel , model) {
+], function(Controller, JSONModel , model, lifeSaver ) {
 	//'use strict';
 	return Controller.extend("mickey.controller.MyXML", {
 		//Once my Controller object is created then only initialization should happen
@@ -24,6 +25,22 @@ sap.ui.define([
 			sap.ui.getCore().setModel(oModelGOT, "fire");
 
 		},
+        
+        // onRowSelect: function(oEvent){​
+
+        //     console.log(oEvent.getParameter("rowContext").getPath());
+        //     var sPath =  oEvent.getParameter("rowContext").getPath();
+        //     this.getView().byId("myForm").bindElement(sPath);
+        //  }​,
+
+
+        superman:lifeSaver,
+        onRowSelect: function(oEvent){
+            console.log(oEvent.getParameter("rowContext").getPath());
+            var  sPath = oEvent.getParameter("rowContext").getPath();
+            this.getView().byId("myForm").bindElement(sPath);
+        },
+
 		onBeforeRendering: function() {
 			//if(checkings....)
 			this.oView.byId("MyButton").setEnabled(false);
